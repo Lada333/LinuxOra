@@ -34,6 +34,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun checkAlarm() {
+        //van-e alarm
         ContextCompat.getSystemService(this, AlarmManager::class.java)?.let { manager ->
             val nextAlarm = manager.nextAlarmClock
             if (nextAlarm == null) {

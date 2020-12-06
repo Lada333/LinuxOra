@@ -21,11 +21,11 @@ object Alarm {
         val timedCharging = composeIntent(context, TIMED_CHARGING_REQUEST_CODE, TIMED_CHARGING_CHANGE_ACTION)
 
         ContextCompat.getSystemService(context, AlarmManager::class.java)?.let {
-            val chargeNotify = nextAlarm.triggerTime- MASFEL_ORA
+            val chargeNotify = nextAlarm.triggerTime - MASFEL_ORA
             if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) it.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, chargeNotify, chargeBattery)
             else it.setExact(AlarmManager.RTC_WAKEUP, chargeNotify, chargeBattery)
 
-            val timedNotify = nextAlarm.triggerTime-60000L /* Azért kell egy perccel korábban végrehajtani ezt, mert az intent törlés hamarabb történik meg, és bezavar itt */
+            val timedNotify = nextAlarm.triggerTime - 60_000L
             if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) it.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, timedNotify, timedCharging)
             else it.setExact(AlarmManager.RTC_WAKEUP, timedNotify, timedCharging)
         }
@@ -35,7 +35,7 @@ object Alarm {
     fun sendTimedChargingIntent(context: Context, nextAlarm: AlarmManager.AlarmClockInfo){
         val timedCharging = composeIntent(context, TIMED_CHARGING_REQUEST_CODE, TIMED_CHARGING_CHANGE_ACTION)
         ContextCompat.getSystemService(context, AlarmManager::class.java)?.let {
-            val timedNotify = nextAlarm.triggerTime-60000L
+            val timedNotify = nextAlarm.triggerTime - 60_000L
             if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) it.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, timedNotify, timedCharging)
             else it.setExact(AlarmManager.RTC_WAKEUP, timedNotify, timedCharging)
         }
