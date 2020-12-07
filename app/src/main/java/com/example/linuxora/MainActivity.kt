@@ -29,7 +29,11 @@ class MainActivity : AppCompatActivity() {
         timedChargingSwitch.setOnCheckedChangeListener { _, isChecked ->
             Preferences.pref(this).edit { putBoolean(Preferences.TIMED_CHARGING_ENABLED, isChecked) }
             if (isChecked) checkAlarm()
-            else Alarm.removeSentIntents(this)
+            else
+            {
+                Alarm.removeSentIntents(this)
+                BatteryChargeChanger.setBatteryChargeOn()
+            }
         }
     }
 
